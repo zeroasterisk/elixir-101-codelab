@@ -27,21 +27,77 @@ or Docker runtime, and have downloaded these codelab files.
 
 ### Installing Elixir
 
-The installation instructions are on
-[the Elixir homepage](https://elixir-lang.org/install.html):
+You have a few options, pick one you're comfortable with.
+
+#### Option 1. Run elixir from a free GCP Shell
+
+You can run elixir on a server, for free, via
+[Google Cloud Platform Shell](https://cloud.google.com/shell/docs/)
+or on any remote server on which you can install Elixir.
 
 ```sh
-docker run -it -v --rm elixir bash
+$ sudo apt-get update; sudo apt-get install elixir -y
 ```
+
+#### Option 2. Install elixir on your workstation
+
+You can [install elixir on your local machine](https://elixir-lang.org/install.html).
+
+It has easy install methods for most *nix and osx and even windows.
+
+
+#### Option 3. Run elixir via a docker container on your machine
+
+If you have docker, you can simply run elixir inside of docker, no install needed.
+
+An example of running via docker:
+
+```sh
+# grab elixir
+$ docker pull elixir
+
+# get into bash, inside the container
+$ docker run -it --rm elixir bash
+
+# get into iex, with PWD mapped to /app and setup as the working directory
+$ docker run -it --rm --name ex101 -v "$PWD":/app -w /app elixir iex
+```
+
+If you decide to use docker, you can setup an
+[alias](https://davidwalsh.name/alias-bash)
+in the `.bashrc` to run elixir commands inside docker, like so:
+
+```
+# paste the following into .bashrc or .profile or whatever
+elixir() {
+  docker run -it --rm --name ex101 -v "$(pwd)":/app -w /app elixir $1
+}
+iex() {
+  docker run -it --rm --name ex101 -v "$(pwd)":/app -w /app elixir iex
+}
+```
+
+### Verify your Elixir Install
 
 After installation, you will have three new executables: `iex`, `elixir` and `elixirc`
 
-```sh
-# check installed version
-elixir --version
-# launch REPL
-iex
-```
+1.  Check installed version
+    ```sh
+    $ elixir --version
+    ```
+2.  Launch `iex` the Elixir REPL and do a hello world
+
+    ```sh
+    $ iex
+    Erlang/OTP 20 [erts-9.3.3.2] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:10] [hipe] [kernel-poll:false]
+
+    Interactive Elixir (1.6.6) - press Ctrl+C to exit (type h() ENTER for help)
+    iex(1)> IO.puts "hello world"
+    hello world
+    :ok
+    ```
+
+
 
 ### Download the codelab files
 
@@ -61,7 +117,8 @@ The following will run tests in each of the sub-project folders inside this repo
 
 ```sh
 cd elixir-101-codelab
-find . -maxdepth 1 -type d \( ! -name . \) \( ! -name .git \) -exec bash -c  "cd '{}' && mix test" \;
+find . -maxdepth 1 -type d \( ! -name . \) \( ! -name .git \) -exec bash \
+  -c  "cd '{}' && docker run -it --rm --name e1 -v "$PWD":/app -w /app mix test" \;
 ```
 
 If all the tests pass then you are good to go.
@@ -72,5 +129,5 @@ If some of the tests fail I would appreciate if you send details to alanblount@g
 
 The codelab is split into sub-projects, and instructions are in the README in each folder, as well as in files.
 
-Simply start from the top and fix the code as you go.
+Simply start from the top and fix the code as you go, and watch tests turn green.
 
