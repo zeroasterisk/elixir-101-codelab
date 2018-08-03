@@ -70,10 +70,10 @@ in the `.bashrc` to run elixir commands inside docker, like so:
 ```
 # paste the following into .bashrc or .profile or whatever
 elixir() {
-  docker run -it --rm --name ex101 -v "$(pwd)":/app -w /app elixir $1
+  docker run -it --rm --name ex101 -v "$(pwd)":/app -w /app elixir "$@"
 }
 iex() {
-  docker run -it --rm --name ex101 -v "$(pwd)":/app -w /app elixir iex
+  docker run -it --rm --name ex101 -v "$(pwd)":/app -w /app elixir iex "$@"
 }
 ```
 
