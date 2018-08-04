@@ -15,4 +15,17 @@ defmodule Ex10101Basics do
   def hello do
     :world
   end
+
+  @doc """
+  Hello world.
+
+  ## Examples
+
+      iex> Ex10101Basics.hello
+      :world
+
+  """
+  def hello do
+    :world
+  end
 end

@@ -15,7 +15,9 @@ $ cd ~/your/code/path/elixir-101-codelab/01_basics
 
 Open this README in one of them, and we will use the other for commands
 
-## iex basic start
+## iex basics
+
+Are you ready to go?
 
 ### iex -> hello world
 
@@ -34,7 +36,6 @@ hello world
 ```
 
 Note(2): the `:ok` is the return value from `IO.puts` and the `hello world` is the console output of the command.
-
 
 
 ### iex -> h() for help
@@ -63,7 +64,7 @@ By default, the device is the standard output. It returns :ok if it succeeds.
 
 You can use `CTRL+C` twice, to exit the REPL.
 
-## mix // start up a server
+## mix - basics
 
 We are going to use `mix` to get some existing code up and running a web server, locally.
 
@@ -96,6 +97,8 @@ have an invalid lock.
   • --no-archives-check - does not check archives before fetching deps
 ```
 
+### mix -> download dependencies
+
 Before we can start the code, we need to get the dependencies
 (see `mix.exs` to see `ace` as the only listed dependency)
 
@@ -115,13 +118,24 @@ Unchanged:
 All dependencies up to date
 ```
 
-Ok so you go ahead and try to start the server
+### iex -S mix -> start the webserver & REPL
+
+We can start the REPL with our project code
 
 ```sh
-$ mix run
-[...]
-06:46:16.291 [info]  Serving cleartext using HTTP/1 on port 8080
+$ elixir iex -S mix
+Erlang/OTP 20 [erts-9.3.3.2] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:10] [hipe] [kernel-poll:false]
+
+
+22:42:09.331 [info]  Serving cleartext using HTTP/1 on port 8080
+Interactive Elixir (1.6.6) - press Ctrl+C to exit (type h() ENTER for help)
 ```
+
+NOTE: if you don't need the REPL, you will often use `mix run` - you will see that more later.
+
+See the server startup logged?
+
+> Serving cleartext using HTTP/1 on port 8080
 
 In your other terminal, you can test it with `curl`
 (or I guess in a browser, if you really want).
@@ -130,6 +144,27 @@ In your other terminal, you can test it with `curl`
 $ curl http://localhost:8080
 Hello, World!
 ```
+
+We will come back and look at this webserver implementation soon, but first...
+
+### Execute code in the REPL
+
+Since you have the REPL exposed, you can execute code from it.
+
+*Tip: tab autocompletion FTW*
+
+```
+iex> Ex10101Basics.hello()
+:world
+```
+
+You can see the code in `./lib/ex101_01_basics.ex`
+
+## Make a code change
+
+Let's make a code change and alter "Hello, World!" to something else.
+
+
 
 ----------------------
 
