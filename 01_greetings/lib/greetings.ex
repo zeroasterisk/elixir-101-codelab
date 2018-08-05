@@ -2,6 +2,7 @@ defmodule Greetings do
   @moduledoc """
   This will create our Greeting text
   """
+
   @doc """
   Super simple greeting to the world
   """
@@ -32,41 +33,33 @@ defmodule Greetings do
       "Hello Nobody!"
 
   """
-  def greet(name, lang \\ "EN")
+  def greet(name, lang \\ :EN)
   def greet(name, lang) when is_bitstring(name) do
-    hello = lang |> salutation()
+    hello = lang |> LanguageHelpers.salutation()
     "#{hello} #{clean_name(name)}!"
   end
   def greet(name, lang) when is_integer(name) do
     "Number #{name}" |> greet(lang)
   end
+  def greet(name, lang) when is_atom(name) do
+    name
+    |> Atom.to_string()
+    |> greet(lang)
+  end
+  def greet(names, lang) when is_list(names) do
+    names
+    |> Enum.join(", ")
+    |> greet(lang)
+  end
   def greet(), do: "Hello Nobody!"
 
-  @doc """
-  hello in various languages
-
-  ## Examples
-
-      iex> Greetings.salutation("EN")
-      "Hello"
-
-      iex> Greetings.salutation("PT")
-      "Olà"
-  """
-  def salutation("EN"), do: "Hello"
-  def salutation("US"), do: "Howdy"
-  def salutation("ES"), do: "Hola"
-  def salutation("DE"), do: ["Hallo", "Guten Tag"] |> Enum.random
-  def salutation("FR"), do: "Bonjour"
-  def salutation("IT"), do: "Ciao"
-  def salutation("PT"), do: "Olà"
-  def salutation("HI"), do: "Namaste"
-  def salutation("FA"), do: "Salaam"
-  def salutation("RU"), do: "Zdras-tvuy-te"
-  def salutation(_), do: "Beep beep"
 
   @doc """
   An example of some quick string cleanup
+
+  Trims whitespace and line breaks
+  Cleans strange character encodings
+  Forces name to capitalize all words
 
   ## Examples
 
@@ -79,7 +72,9 @@ defmodule Greetings do
     name
     |> String.trim
     |> String.normalize(:nfc)
-    |> String.capitalize
+    |> String.split(" ")
+    |> Enum.map(&String.capitalize/1)
+    |> Enum.join(" ")
   end
 
 end

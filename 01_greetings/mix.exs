@@ -1,11 +1,11 @@
-defmodule Ex10101Basics.MixProject do
+defmodule Ex10101Greetings.MixProject do
   use Mix.Project
 
   def project do
     [
-      app: :ex101_01_basics,
+      app: :ex101_greetings,
       version: "0.1.0",
-      elixir: "~> 1.6",
+      elixir: "~> 1.7",
       start_permanent: Mix.env() == :prod,
       deps: deps()
     ]
@@ -15,15 +15,13 @@ defmodule Ex10101Basics.MixProject do
   def application do
     [
       extra_applications: [:logger],
-      # mod: {Greetings.Application, []}
     ]
   end
 
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:cowboy, "~> 2.4.0"},
-      {:plug, "~> 1.6.2"}
+      {:mix_test_watch, "~> 0.8", only: :dev, runtime: false},
       # {:dep_from_hexpm, "~> 0.3.0"},
       # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"},
     ]
