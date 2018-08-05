@@ -15,14 +15,15 @@ defmodule Ex10101Basics.MixProject do
   def application do
     [
       extra_applications: [:logger],
-      mod: {Greetings.Application, []}
+      # mod: {Greetings.Application, []}
     ]
   end
 
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:ace, "~> 0.15.9"},
+      {:cowboy, "~> 2.4.0"},
+      {:plug, "~> 1.6.2"}
       # {:dep_from_hexpm, "~> 0.3.0"},
       # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"},
     ]
