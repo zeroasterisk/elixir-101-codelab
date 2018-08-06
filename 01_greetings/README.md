@@ -23,7 +23,7 @@ $ cd ~/your/code/path/elixir-101-codelab/01_greetings
 
 Open this README in one of them, and we will use the other for commands
 
-## task 1: install dependencies and start a REPL with code
+## Task 1: install dependencies and start a REPL with code
 
 For future tasks, you will have less guidance,
 but since this is the first task, I'll walk you through it.
@@ -148,7 +148,7 @@ iex> Greetings.hello
 > Hint: You can use `TAB` completion inside `iex`
 > Hint: You can use the `UP` arrow key to repeat previously typed commands
 
-## task 2: change `:not_yet_world` to `:world`
+## Task 2: change `:not_yet_world` to `:world`
 
 Edit code to make the `Greetings.hello` function return the atom `:world`
 
@@ -169,7 +169,7 @@ warning: redefining module Greetings (current version loaded from _build/dev/lib
 {:reloaded, Greetings, [Greetings]}
 ```
 
-## task X: make all tests pass
+## Task 3: make all tests pass
 
 The bulk of your code editing for this section, will now commence.
 
@@ -181,8 +181,73 @@ You can start a test watcher in one terminal, and edit code in the other window.
 $ mix test.watch
 ```
 
+Or you can just run `mix test` over and over.
 
-## task X: generate documentation
+You can filter which tests you run, if you want to focus on just one with the path to the test file and the line number of the assert or the describe block.
 
-All tests
+```sh
+# hello
+$ mix test test/greetings_test.exs:6
+# clean_name
+$ mix test test/greetings_test.exs:15
+# greet
+$ mix test test/greetings_test.exs:37
+# guess
+$ mix test test/language_helpers_test.exs:5
+# salutation
+$ mix test test/language_helpers_test.exs:34
+```
 
+> Note: this is really the meat of the section.
+> Use the solution folder if you need to or ask someone nearby for help.
+> It's ok if it's not the "elixir way",
+> just get the test to pass, then you can refactor it.
+
+## Task 4: generate documentation
+
+We have pretty docblocks, lets turn them into pretty documentation.
+
+- Install the `ex_doc` hex package
+- Use it to generate documentation
+- View the documentation and marvel at how glorious it is
+
+## Task 5: generate test coverage report
+
+We have some tests, which now, all pass... is it enough tests?
+
+NOTE: this is the first time you will edit the tests files.
+
+- Generate a test coverage report
+- Figure out how to get it to 100% on both Modules
+- Ensure all tests still pass
+
+> Hint: Coverage is now included in the core test suite as of `v1.7`,
+> beware of external packages and modules.
+> You should not need to install anything.
+
+> Hint: Take a look at the HTML file generated in the new `cover` directory
+
+> Hint: Testing with Random is difficult...
+> Maybe see if the resulting value is one of the expected ones
+
+## Done
+
+Did you make it here?
+
+Sweet!!!!  Great work!
+
+- help out someone next to you
+- ask questions of the instructor
+- refactor your code
+
+Did you encounter a problem?
+
+- ask questions of the person next to you
+- ask questions of the instructor
+- look in the solutions directory
+- file an issue on github
+- refactor the starting code and submit a PR to the repo
+
+Ready to go on?
+
+Open the next folder and carry on.
