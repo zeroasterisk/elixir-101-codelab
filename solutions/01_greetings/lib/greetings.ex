@@ -1,6 +1,10 @@
 defmodule Greetings do
   @moduledoc """
-  This will create our Greeting text
+  This will create our Greeting text: "Hello World"
+
+  For this contrived example we have
+  - hello() which just returns :world
+  - greet(name, lang = [:EN]) which returns a language specific "Hello $name!"
   """
 
   @doc """

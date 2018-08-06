@@ -230,6 +230,18 @@ NOTE: this is the first time you will edit the tests files.
 > Hint: Testing with Random is difficult...
 > Maybe see if the resulting value is one of the expected ones
 
+## Bonus: run static code analysis
+
+Try out
+[credo](https://github.com/rrrene/credo)
+a static code analysis tool for the Elixir language
+with a focus on code consistency and teaching.
+
+Try out
+[dialyxir](https://github.com/jeremyjh/dialyxir)
+which is an elixir wrapper for dialyzer,
+[read more](https://elixirschool.com/en/lessons/specifics/debugging/).
+
 ## Done
 
 Did you make it here?

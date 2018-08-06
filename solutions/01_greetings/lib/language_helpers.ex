@@ -1,4 +1,15 @@
 defmodule LanguageHelpers do
+  @moduledoc """
+  This is a simple utility module to manage language specific functionality.
+
+  This is currently hardcoded, but could be re-implemented with
+  internal state, a DB lookup, or API access.
+
+  At some point, it could become it's own top level module,
+  a library which could be shared across projects and managed independantly.
+
+  For now, it's really simple and limited.
+  """
 
   @supported_languages [
     :EN,
