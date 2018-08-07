@@ -9,12 +9,16 @@ defmodule Greetings do
 
   @doc """
   Super simple greeting to the world
+
+  It takes no arguments, and returns :world
   """
-  def hello(), do: :world
+  # Task: change :not_yet_world to :world
+  def hello(), do: :not_yet_world
 
   @doc """
   Greet is our main entry point,
   accetping a language and a name
+  returning a greeting in the correct language.
 
   ## Examples
 
@@ -38,23 +42,17 @@ defmodule Greetings do
 
   """
   def greet(name, lang \\ :EN)
-  def greet(name, lang) when is_bitstring(name) do
+  def greet(name, lang) when is_bitstring(name) or is_atom(name) do
     hello = lang |> LanguageHelpers.salutation()
     "#{hello} #{clean_name(name)}!"
   end
   def greet(name, lang) when is_integer(name) do
     "Number #{name}" |> greet(lang)
   end
-  def greet(name, lang) when is_atom(name) do
-    name
-    |> Atom.to_string()
-    |> greet(lang)
-  end
-  def greet(names, lang) when is_list(names) do
-    names
-    |> Enum.join(", ")
-    |> greet(lang)
-  end
+  # Task: when you get a list of names, join them with a comma
+  # def greet(names, lang) when is_list(names) do
+  #   ...
+  # end
   def greet(), do: "Hello Nobody!"
 
 
@@ -70,9 +68,11 @@ defmodule Greetings do
       iex> Greetings.clean_name(" jes  ")
       "Jes"
   """
-  def clean_name(""), do: "Mystery Person"
-  def clean_name(nil), do: "Nobody"
-  def clean_name(name) do
+  # Task: when you get "", return "Mystery Person"
+  # Task: when you get nil, return "Nobody"
+  # Task: when you get a name which is an atom, transform it into a string
+  # Hint: use more function definitions, do not edit the below definition
+  def clean_name(name) when is_bitstring(name) do
     name
     |> String.trim
     |> String.normalize(:nfc)

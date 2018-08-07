@@ -35,13 +35,15 @@ defmodule LanguageHelpers do
       nil
   """
   def guess(lang) when is_atom(lang) do
-    lang |> Atom.to_string() |> guess()
+    # Task: we got an atom...
+    #   but not a valid one or we wouldn't have to guess
+    #   try converting the atom to a string, and recursing into guess()
   end
   def guess(lang) when is_bitstring(lang) do
     guessed_language = lang
-                       |> String.trim()
-                       |> String.upcase()
-                       |> String.to_atom()
+    # Task: get rid of whitespace
+    # Task: make all upper case
+    # Task: make the string into an atom for easy comparison
     case Enum.member?(@supported_languages, guessed_language) do
       true -> guessed_language
       false -> nil
@@ -61,7 +63,7 @@ defmodule LanguageHelpers do
       "Olà"
   """
   def salutation(:EN), do: "Hello"
-  def salutation(:ES), do: "Hola"
+  # Task: add an entry for :ES = "Hola"
   def salutation(:DE), do: ["Hallo", "Guten Tag"] |> Enum.random
   def salutation(:FR), do: "Bonjour"
   def salutation(:IT), do: "Ciao"
@@ -98,7 +100,5 @@ defmodule LanguageHelpers do
   #   and somehow our guess wasn't nil nor a string
   #   return "Impossible"
   def salutation(_term, _guessed_language), do: "Impossible"
-
-
 
 end

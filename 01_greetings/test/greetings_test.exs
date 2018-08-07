@@ -49,9 +49,12 @@ defmodule GreetingsTest do
     test "greets a Number by name, even though an integer was passed in" do
       assert Greetings.greet(7) == "Hello Number 7!"
     end
-    test "greets a list of names" do
+    test "greets a list of names as CSV" do
       names = ["Jim", "Joe", "Bob"]
       assert Greetings.greet(names) == "Hello Jim, Joe, Bob!"
+    end
+    test "greets without args as Hello Nobody!" do
+      assert Greetings.greet() == "Hello Nobody!"
     end
   end
 
