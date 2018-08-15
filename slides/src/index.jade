@@ -1,0 +1,505 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1, maximum-scale=1')
+    title Elixir 101 (slides)
+
+    link(rel='stylesheet', type='text/css', href='build/build.css')
+
+  style.
+    .hello {
+      /* background-image: url('images/hello-tharr.gif') */
+      background-image: url('images/cuttlefish.gif')
+    }
+    div.elixir {
+      background-image: url('images/elixir-logo.png')
+    }
+    .erlang {
+      background-image: url('images/erlang-logo.png')
+    }
+    .yawn {
+      background-image: url('images/yawn.gif')
+    }
+    .example {
+      background-image: url('images/example.gif')
+    }
+    .star-loop {
+      background-image: url('images/star-loop.gif')
+    }
+    .sad-kirk {
+      background-image: url('images/sad-kirk.gif')
+    }
+    .happy-kirk {
+      background-image: url('images/happy-kirk.gif')
+    }
+    .nye {
+      background-image: url('images/nye.gif')
+    }
+    .package {
+      background-image: url('images/package.gif')
+    }
+    .mind-blown {
+      background-image: url('images/mind-blown.gif')
+    }
+    .universe {
+      background-image: url('images/universe.gif')
+    }
+    .babel {
+      background-image: url('images/babel.gif')
+    }
+    .bear {
+      background-image: url('images/bear.gif')
+    }
+
+  body
+
+    article
+
+      section
+        h2 Elixir 101:
+        h4 A brief introduction before the codelab
+        h3 With your host
+        h4 Alan Blount
+        p
+          a(href='https://twitter.com/zeroaterisk') @zeroasterisk
+
+      section(data-bespoke-backdrop='hello')
+        h1 Hi.
+
+      section
+        h1 My Name is Alan
+        img.headroom(src='images/alan-slipnslide.jpg' alt='alan jumping' height='250px')
+
+      section
+        h3 I am employed by Google as a Technical Program Manager
+        h4 Payments Backend &amp; Banking Integrations
+
+        img(src='images/google-pay-logo.png' alt='Google Payments' height='200px' style='background-color:white;')
+
+        h5.headroom The opinions expressed in this talk are solely my own
+
+      section
+        h1 Let's Jump Right In
+        img.headroom(src='images/alan-cliff-jump.jpg' alt='alan jumping' height='250px')
+
+      section(data-bespoke-backdrop='elixir')
+        h1 What is Elixir?
+
+      section(data-bespoke-backdrop='elixir')
+        h2
+          img.headroom(src='images/elixir-logo-text.png' alt='elixir logo' height='100px'
+          style='background-color:white; padding: 0.5em 1.7em;')
+        ul
+          li.hide
+          li Typed &amp; Immutable(mostly)
+          li Functional
+          li Ruby(ish) Syntax <em>(focus on readability)</em>
+          li Built on Erlang &amp; runs on the BEAM VM.
+
+      section(data-bespoke-backdrop='elixir')
+        h2
+          img.headroom(src='images/elixir-to-erlang-compile.png' alt='elixir compile steps' height='200px' style='background-color:white;')
+        h3 Elixir is (mostly) macros on Erlang
+
+      section(data-bespoke-backdrop='erlang')
+        h1 What is Erlang?
+
+      section(data-bespoke-backdrop='erlang')
+        h2
+          img.headroom(src='images/erlang-logo.png' alt='erlang logo' height='100px'
+          style='background-color:white; padding: 0.5em 1.7em;')
+        h3 Erlang is...
+        ul
+          li.hide
+          li Both a Language + VM (BEAM)
+          li Created by Ericson in 1986 &amp; open sourced in 1998
+          li It has been in many massive production systems for 20+ years
+          li Widely adopted by telcom &amp; communications
+          li Used in systems like distributed DBs, high-frequency trading, etc
+
+      section(data-bespoke-backdrop='erlang')
+        h2
+          img.headroom(src='images/erlang-logo.png' alt='erlang logo' height='100px'
+          style='background-color:white; padding: 0.5em 1.7em;')
+        h3 Erlang Key Features
+        ul
+          li.hide
+          li Soft Real-Time
+          li Clustering built in
+          li Light weight message passing built in
+          li Pure Actor Model
+          li OTP (Open Telecom Platform) tools &amp; designs for supervisors/processes
+          li Fault-tolerance (let it die)
+
+      section(data-bespoke-backdrop='erlang')
+        h2
+          img.headroom(src='images/erlang-logo.png' alt='erlang logo' height='100px'
+          style='background-color:white; padding: 0.5em 1.7em;')
+        blockquote "Erlang is a programming language and runtime system for building massively scalable soft real-time systems with requirements on high availability.
+
+      section(data-bespoke-backdrop='erlang')
+        blockquote "At the time of writing the largest of these projects is a major
+          | Ericsson product, having over a million lines of Erlang code.
+          | This product (the AXD301) is thought to be
+          | <u>one of the most reliable products ever made by Ericsson</u>
+        blockquote "Switching systems should run with an acceptable level of service even in the
+          | presence of errors. Telephone exchanges are expected to be extremely reliable. Typically
+          | <u>having less than two hours of down-time in 40 years</u>."
+        p(style='text-align=right;margin-top:1em;') &mdash;
+          | Joe Armstrong (creator of Erlang)<br/>
+          | in his 2003 thesis about the creation of Erlang
+
+      section(data-bespoke-backdrop='erlang')
+        blockquote "If somebody came to me and wanted to pay me a lot of money to
+          | build a large scale message handling system that really had to be up
+          | all the time, could never afford to go down for years at a time,
+          | <u>I would unhesitatingly choose Erlang to build it in</u>."
+        p(style='text-align=right;margin-top:1em;') &mdash;
+          | Tim Bray, director of Web Technologies at Sun Microsystems<br/>
+          | in his 2008 keynote at OSCON
+
+      section(data-bespoke-backdrop='star-loop')
+        h2 Ericsson AXD
+        h3 control plane of an ATM switch
+        ul
+          li.hide
+          li 99.9999999% (9-nines) availability
+          li Concurrent, distributed, soft real-time
+
+      section(data-bespoke-backdrop='star-loop')
+        h2 Cisco
+        h3 Shipping 2m devices/year with Erlang
+        ul
+          li.hide
+          li 90% of <u>all internet traffic</u> goes through Erlang controlled nodes
+          li Top 8 Service Providers use Erlang to control their networks
+          li top 8 Network Equipment Providers use Erlang based components
+
+      section(data-bespoke-backdrop='star-loop')
+        h2 Whatsapp
+        h3 Built Using Erlang
+        ul
+          li.hide
+          li 465M monthly users, 14B(in) &amp; 40B(out) msgs/day
+          li 230k peak logins/sec
+          li 147M peak concurrent connections
+          li 1M+ persistent concurrent connections <em>per server</em>
+          li Less than 50 engineers
+
+      section(data-bespoke-backdrop='package')
+        h1 Why Elixir, and not just use Erlang?
+
+      section(data-bespoke-backdrop='elixir')
+        h3 José Valim created the Elixir programming language, beginning as an R&D project at Plataformatec.
+        h4 Goal: <u>enable higher extensibility and productivity</u> while keeping compatibility with Erlang's ecosystem.
+
+      section(data-bespoke-backdrop='elixir')
+        blockquote "Erlang’s syntax derived from Prolog and was heavily influenced by Smalltalk, CSP and functional programming. Elixir is heavily influenced by Erlang and Ruby.
+        blockquote "From Erlang it brings pattern matching, higher order functions and the entire process and error handling “let it crash” philosophy. From Ruby it brings sigils, and shortcut syntaxes. It also adds a few goodies of its own, the |> pipe operator, reminiscent of Prolog’s DCGs and Haskell monads (though less complicated, more like the good old unix pipe operator) and the macro quote and unquote operators, which come from the lisp quasiquote and comma operators."
+        p(style='text-align=right;margin-top:1em;') &mdash;
+          a(href='http://joearms.github.io/2013/05/31/a-week-with-elixir.html')
+            | Joe Armstrong (2013)
+
+      section(data-bespoke-backdrop='elixir')
+        h1 Elixir is a new language built on top of some very good ideas.
+
+      section(data-bespoke-backdrop='star-loop')
+        h2 Pinterest
+        h3 Rewrote their notification system in Elixir
+        ul
+          li.hide
+          li Handles 14k notifications per second
+          li Uses hald the number of servers as their previous Java implementation
+          li The codebase is ~1/10<sup>th</sup> the size
+
+      section(data-bespoke-backdrop='star-loop')
+        h2 Bleacher Report
+        h3 Recently converted from Ruby to Elixir
+        ul
+          li.hide
+          li 1.5B pageviews/month
+          li 200k concurrent connections to mobile app
+          li Most heavily used service could handle 800% the load
+          li Now using ~1/10th the servers, supporting more traffic
+          li Traffic spikes which used to cause scaling, now handled normally
+          li All streaming content deleivered in about 1/10th the time
+
+      section(data-bespoke-backdrop='yawn')
+        h1 Yawn....
+        h2 Still not convinced...
+
+      section(data-bespoke-backdrop='elixir')
+        h1 Immutability
+        p Very Testable, Easy to Parallelize, No Side Effects
+
+      section(data-bespoke-backdrop='elixir')
+        h1 Isolation
+        p Immutability Allows Garbage Collection at Process Level
+        h3 No big garbage collection pauses
+
+      section(data-bespoke-backdrop='elixir')
+        h1 Reliability
+        h3 OTP Apps are Supervision Trees
+        p
+          img.headroom(src='images/observer-apps.png' alt='erlang logo' height='200px' style='background-color:white; padding: 0.5em 1.7em;')
+        p Supervisors monitor/start/stop Child Workers/Supervisor
+
+      section(data-bespoke-backdrop='elixir')
+        h1 Single-Box Scalability
+        p Often 100's of thousands to millions of processes per machine
+        h3 ~2KB of stack/heap per thread
+
+      section(data-bespoke-backdrop='elixir')
+        h1 Hot Code Reloading
+        h3 Update Production Without Restart
+
+      section(data-bespoke-backdrop='elixir')
+        h1 Debugging &amp; Tracing
+        h3 Debug/Trace Production Without Restart
+        p Read
+          a(href='https://www.erlang-in-anger.com/')
+            | Erlang in Anger
+          | &nbsp;for production support tips
+        p(style='margin-top:1em;')
+          | <em>Also debug in dev with <code>pry</code><br/>
+          | similar to JavaScript <code>debugger;</code></em>
+
+      section(data-bespoke-backdrop='elixir')
+        h1 Better Architecture -> Cleaner Code
+        p Less "defensive programming"
+        p Exception handling is rare
+
+      section(data-bespoke-backdrop='elixir')
+        h1 Functional Programming FTW
+        p Encourages smaller functions
+        p Testing is easier and faster
+        p Side effects suck!
+
+      section(data-bespoke-backdrop='elixir')
+        h1 Developer Experience
+        ul
+          li.hide
+          li Rhobust REPL, build system, &amp; package management
+          li Tooling baked in: docs, testing, etc
+          li Vibrant and supportive community
+          li Well documented
+          li Fun to learn a new approach to programming
+          li(style='text-align:right') (not new just syntax)
+
+      section(data-bespoke-backdrop='babel')
+        h1 Impressed?
+
+      section(data-bespoke-backdrop='example')
+        h1 Show me some examples
+
+      // lifted from http://tednaleid.github.io/intro-to-elixir/
+      section(data-bespoke-backdrop='elixir')
+        h2 Basic Types
+        pre
+          code.elixir
+            | iex> my_tuple = {:ok, "return value", 715}
+            | {:ok, "return value", 715}
+            | ­
+            | iex> my_list = [1, 2, 3, 4, 5]
+            | [1, 2, 3, 4, 5]
+            | ­
+            | iex> my_map = %{:first => "Tom", :last => "Waits"}
+            | %{first: "Tom", last: "Waits"}
+
+      section(data-bespoke-backdrop='elixir')
+        h2 Tuples, Lists, Maps
+        pre
+          code.elixir
+            | iex> my_tuple = {:ok, "return value", 715}
+            | {:ok, "return value", 715}
+            | ­
+            | iex> my_list = [1, 2, 3, 4, 5]
+            | [1, 2, 3, 4, 5]
+            | ­
+            | iex> my_map = %{:first => "Tom", :last => "Waits"}
+            | %{first: "Tom", last: "Waits"}
+
+      section(data-bespoke-backdrop='elixir')
+        h2 Closures
+        pre
+          code.elixir
+            | iex> sum = fn a, b -> a + b end
+            | #Function<12.90072148/2 in :erl_eval.expr/5>
+            | ­
+            | iex> sum.(1, 2)
+            | 3
+            | ­
+            | # shortened closure syntax:
+            | ­
+            | iex> short_sum = &(&1 + &2)
+            | &:erlang.+/2
+            | ­
+            | iex> short_sum.(1, 2)
+            | 3
+
+      section(data-bespoke-backdrop='elixir')
+        h2 Structs
+        pre
+          code.elixir
+            | iex> defmodule Person do
+            | ...>   defstruct first: "Tom", last: "Waits"
+            | ...> end
+            | {:module, Person, …}
+            | ­
+            | iex> %Person{}
+            | %Person{first: "Tom", last: "Waits"}
+            | ­
+            | iex> %Person{first: "Hazel"}
+            | %Person{first: "Hazel", last: "Waits"}
+            | ­
+            | iex> %Person{nope: "Bad Field"}
+            | ** (CompileError) iex:4: unknown key :nope for struct
+
+      section(data-bespoke-backdrop='elixir')
+        h2 Protocols
+        pre
+          code.elixir
+            | iex> defprotocol Stringable do
+            | ...>   def to_string(value)
+            | ...> end
+            | ­
+            | iex> defimpl Stringable, for: Person do
+            | ...>   def to_string(value) do
+            | ...>     "#\{value.first\} #\{value.last\}"
+            | ...>   end
+            | ...> end
+            | ­
+            | iex> Stringable.to_string(%Person{})
+            | "Tom Waits"
+        p.foot Some similarities to an OOP Interface
+
+      section(data-bespoke-backdrop='elixir')
+        h2 Pattern Matching
+        pre
+          code.elixir
+            | iex> a = {:ok, 1}
+            | {:ok, 1}
+            | ­
+            | iex> {:ok, b} = {:ok, 1}
+            | {:ok, 1}
+            | ­
+            | iex> b
+            | 1
+
+      section(data-bespoke-backdrop='elixir')
+        h2 Pattern Matching Lists
+        pre
+          code.elixir
+            | iex> [a, b, c] = [1, 2, 3]
+            | [1, 2, 3]
+            | ­
+            | iex> a
+            | 1
+            | ­
+            | iex> [head | tail] = [1, 2, 3]
+            | [1, 2, 3]
+            | ­
+            | iex> head
+            | 1
+            | ­
+            | iex> tail
+            | [2, 3]
+
+      section(data-bespoke-backdrop='elixir')
+        h2 Pattern Matching Structs
+        pre
+          code.elixir
+            | case HTTP.get(url) do
+            |   {:ok, %HTTP.Resp{ status: 200, body: body }} ->
+            |     IO.puts body
+            |   {:ok, %HTTP.Resp{ status: 404 }} ->
+            |     IO.puts "Not found :("
+            |   {:ok, %HTTP.Resp{ status: status }} ->
+            |     IO.puts "HTTP Status: #{status}"
+            |   {:error, %HTTP.Error{ reason: reason }} ->
+            |     IO.inspect reason
+            |   _ ->
+            |     IO.puts "¯\_(ツ)_/¯"
+            | end
+
+      section(data-bespoke-backdrop='mind-blown')
+        h2 Pattern Matching in Functions
+        pre
+          code.elixir
+            | def execute({:ok, good_value}) do
+            |   IO.puts "Known good value: #{good_value}"
+            | end
+            | ­
+            | def execute({:error, error_reason}) do
+            |   IO.puts "Error! #{error_reason}"
+            | end
+            | ­
+            | iex> execute({:ok, "Yay!"})
+            | Known good value: Yay!
+            | ­
+            | iex> execute({:error, "Boo!"})
+            | Error! Boo!
+
+      section(data-bespoke-backdrop='elixir')
+        h2 Pipe Oporator
+        pre
+          code.elixir
+            | defmodule Shop do
+            |   defp apply_tax(prices) do
+            |     Enum.map(prices, fn v -> v * 1.1 end)
+            |   end
+            | ­
+            |   def cart_total(items) do
+            |     Enum.sum(
+            |       apply_tax(
+            |         Enum.map(items, fn item -> item.price end)))
+            |   end
+            | end
+            | ­
+            | Shop.cart_total([%{:price=>5.00}, %{:price=>2.00}])
+            | # => 7.7
+
+      section(data-bespoke-backdrop='sad-kirk')
+        h2 Without a Pipe Oporator
+        pre
+          code.elixir
+            | def cart_total(items) do
+            |   prices = Enum.map(items, fn itm -> itm.price end)
+            |   prices_with_tax = apply_tax(prices)
+            |   Enum.sum(prices_with_tax)
+            | end
+
+      section(data-bespoke-backdrop='happy-kirk')
+        h2 With a Pipe Oporator
+        pre
+          code.elixir
+            | def cart_total(items) do
+            |   items
+            |   |> Enum.map(fn item -> item.price end)
+            |   |> add_tax
+            |   |> Enum.sum
+            | end
+        p Similar to unix pipe: ps ax | grep iex | awk '{ print $1 }'
+
+      section(data-bespoke-backdrop='universe')
+        h2 And you have all of Erlang...
+        pre
+          code.elixir
+            | iex> :crypto.md5("sekr1t")
+            | <<192, 151, 240, 131, 252, 86, 1, 90, 71, 171, 2, …
+        p Can easily leverage 20+ years of Erlang libraries
+
+      section(data-bespoke-backdrop='shut-up-and-take-my-money')
+        h1 Ready to try it out?
+
+      section(data-bespoke-backdrop='nye')
+        h1 You can use Elixir today
+        h3 It's really easy to get started
+        p And not hard to become really productive
+
+      section(data-bespoke-backdrop='bear')
+        h2 Thank You
+        h4 Alan Blount (@zeroasterisk)
+
+    script(src='build/build.js')
