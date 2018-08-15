@@ -60,7 +60,7 @@ $ docker pull elixir
 $ docker run -it --rm elixir bash
 
 # get into iex, with PWD mapped to /app and setup as the working directory
-$ docker run -it --rm --name ex101 -v "$PWD":/app -w /app elixir iex
+$ docker run -it --rm --name ex101 -v "$PWD":/app -v "$(pwd)/_tmp/.mix":/root/.mix -w /app elixir iex
 ```
 
 If you decide to use docker, you can setup an
