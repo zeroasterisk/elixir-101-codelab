@@ -1,19 +1,29 @@
 # Elixir 101 > Codelab 01: Greetings
 
-All of the sections of this codelab will requires you to
-view and edit the code, fixing errors and adding functionality.
+All of the sections of this codelab will require you to **edit the code**,
+fixing errors and adding functionality.
+
+*Do Not Edit the tests, nor the examples in docblocks*
+
 You can always review the solutions to see a functional implementation,
 but there are many ways to solve any of these problems.
 
-This section will get you familiar with some of the basic code
-syntax and highlight a few of the interesting features of the language,
-as well as expose you to the tooling for development.
+This section will get you familiar with some of the
+basic code syntax and highlight
+a few of the interesting features of Elixir.
+
+Just as importantly, it will expose you to the developer tooling,
+and simulate actually working in Elixir (a bit) beyond a "hello world".
 
 But before we get into the code, lets get you familiar with our tools.
 
-## Prep: 2 terminals
+## Prep: 2 terminals / windows
 
-I suggest you setup 2 terminals, side by side, each taking up half of your screen.
+I suggest you setup 2 panes, side by side,
+each taking up half of your screen.
+
+One should be a means of editing code (IDE, `vim`, etc),
+and one for a running commands.
 
 In each, get into the code directory:
 
@@ -21,64 +31,13 @@ In each, get into the code directory:
 $ cd ~/your/code/path/elixir-101-codelab/01_greetings
 ```
 
-Open this README in one of them, and we will use the other for commands
-
-## Task 1: install dependencies and start a REPL with code
-
-For future tasks, you will have less guidance,
-but since this is the first task, I'll walk you through it.
-
-### iex -> hello world
-
-You should be comfortable using `iex` and able to create a "hello world".
-
-This is not at all related to the code, yet.
-
-```
-$ iex
-Erlang/OTP 20 [erts-9.3.3.2] [source] [64-bit] [smp:4:4] [ds:4:4:10] [async-threads:10] [hipe] [kernel-poll:false]
-
-Interactive Elixir (1.6.6) - press Ctrl+C to exit (type h() ENTER for help)
-iex(1)> "hello world"
-"hello world"
-iex(2)> IO.puts "hello world"
-hello world
-:ok
-```
-
-> Note(2): the `:ok` is the return value from `IO.puts` and the `hello world` is the console output of the command.
-
-
-You can use the `h` helper for more information on any function (including yours) from `iex`
-
-```
-iex> h IO.puts
-
-                        def puts(device \\ :stdio, item)
-
-    @spec puts(device(), chardata() | String.Chars.t()) :: :ok
-
-Writes item to the given device, similar to write/2, but adds a newline at the end.
-
-By default, the device is the standard output. It returns :ok if it succeeds.
-
-## Examples
-
-    IO.puts "Hello World!"
-    #=> Hello World!
-
-    IO.puts :stderr, "error"
-    #=> error
-```
-
-You can use `CTRL+C` twice, to exit the REPL.
-
-Go ahead and exit, we will come back to `iex` in a bit.
+NOTE: also open this README (in your editor or browser or whatever)
 
 ### mix - get dependencies, compile code, and start services
 
-We are going to use `mix` to get our dependencies.
-We can use it for a lot of other things too.
+In a bit, we are going to use `mix` to get our dependencies.
+
+We can use `mix` for a lot of other things too.
 
 ```sh
 $ mix help
@@ -109,14 +68,21 @@ have an invalid lock.
 > [docs](https://hexdocs.pm/mix/Mix.html) &
 > [elixirschool](https://elixirschool.com/en/lessons/basics/mix/).
 
+### mix deps.get - to get dependancies
 
-Before we can start our code, we need to get it's dependencies,
-which you can see in `mix.exs`.
+Before we can start our code, we need to get it's dependencies.
 
-For this codelab section, we are only including a `test.watch`
-to make your life easier later.
+You can see all of the dependencies in `mix.exs`.
+
+There is also a `mix.lock` file which stores explicit versions.
+
+For this codelab section, we are only including a single dependency,
+`test.watch` which will make your life easier when testing.
+It will execute tests and re-run all tests when you edit files (yay TDD).
 
 You should be able to execute the mix task `deps.get` to get it.
+
+> NOTE you may get the "Could not find Hex" prompt, say "y"
 
 ```sh
 $ mix deps.get
@@ -131,10 +97,14 @@ New:
 All dependencies up to date
 ```
 
+Errors? Ask for help or Google it.
+- check elixir version?
+- `rm -rf _build mix.lock; mix deps.get`
+
 ### iex -S mix (opens your code in the REPL)
 
 You can run code with `mix run` and run tests with `mix test`
-but to start with, we can open `iex` but this time with our code.
+but to start with, we can also open `iex` with our code compiled in.
 
 In this case we will trigger `iex` with `-S` which stands for `SCRIPT`,
 it will cause `mix` to compile our code and run it within `iex`.
@@ -145,21 +115,36 @@ iex> Greetings.hello
 :not_yet_world
 ```
 
-> Hint: You can use `TAB` completion inside `iex`
-> Hint: You can use the `UP` arrow key to repeat previously typed commands
+> Pro Tip: You can use `TAB` completion inside `iex`
+> and you can use the `UP` arrow key to repeat previously typed commands.
 
 ## Task 2: change `:not_yet_world` to `:world`
 
-Edit code to make the `Greetings.hello` function return the atom `:world`
+Right now the function `Greetings.hello()` returns `:not_yet_world`
+
+You can see this by running some tests.
+
+You'll notice several other test failing too... We will get to those.
+
 
 ```sh
-$ iex -S mix
-iex> Greetings.hello
-:world
+$ mix test
+
+  1) test hello says hello to the world (GreetingsTest)
+     test/greetings_test.exs:7
+     Assertion with == failed
+     code:  assert Greetings.hello() == :world
+     left:  :not_yet_world
+     right: :world
+     stacktrace:
+       test/greetings_test.exs:8: (test)
 ```
 
-Hint: the code is in `./lib/greetings.exs`
-Hint: within `iex` you can recompile a module as follows:
+If you want, you can run `mix test.watch` and it will re-run tests for you as you edit files.
+
+Or you can run `iex -S mix` and play with your code as you edit it.
+
+> Pro Tip: within `iex` you can recompile a module after you edit it with `r ModuleName`
 
 ```
 iex> r Greetings
@@ -169,34 +154,20 @@ warning: redefining module Greetings (current version loaded from _build/dev/lib
 {:reloaded, Greetings, [Greetings]}
 ```
 
+For now, edit `./lib/greetings.exs` and change `:not_yet_world` to `:world`
+
+Now run tests again...
+You should notice 2 fewer failures. *(one docblock test, and one test file test)*
+
 ## Task 3: make all tests pass
 
-The bulk of your code editing for this section, will now commence.
+You will need to make 2 new copies of the `hello()` function to make the tests pass.
 
-**Try to make all tests pass.**
+One of them will accept an atom and simply return it.
 
-You can start a test watcher in one terminal, and edit code in the other window.
+One of them will accept a string, and return `"Hello <string>"`.
 
-```sh
-$ mix test.watch
-```
-
-Or you can just run `mix test` over and over.
-
-You can filter which tests you run, if you want to focus on just one with the path to the test file and the line number of the assert or the describe block.
-
-```sh
-# hello
-$ mix test test/greetings_test.exs:6
-# clean_name
-$ mix test test/greetings_test.exs:15
-# greet
-$ mix test test/greetings_test.exs:37
-# guess
-$ mix test test/language_helpers_test.exs:5
-# salutation
-$ mix test test/language_helpers_test.exs:34
-```
+> Hint: use a guard clause on the function, to require a specific type of argument.
 
 > Note: this is really the meat of the section.
 > Use the solution folder if you need to or ask someone nearby for help.
@@ -207,28 +178,26 @@ $ mix test test/language_helpers_test.exs:34
 
 We have pretty docblocks, lets turn them into pretty documentation.
 
-- Install the `ex_doc` hex package
-- Use it to generate documentation
+- Install the `ex_doc` hex package (google it)
+- Use it to generate documentation (should be on the package's README/docs)
 - View the documentation and marvel at how glorious it is
 
 ## Task 5: generate test coverage report
 
+**Skip this section if you are not on Elixir 1.7+ or if you are behind**
+
 We have some tests, which now, all pass... is it enough tests?
 
-NOTE: this is the first time you will edit the tests files.
+NOTE: this will be the first time you will edit the tests files.
 
 - Generate a test coverage report
-- Figure out how to get it to 100% on both Modules
+- Take a look at the HTML file generated in the new `cover` directory
+- Figure out how to get it to 100% coverage (add a new test)
 - Ensure all tests still pass
 
 > Hint: Coverage is now included in the core test suite as of `v1.7`,
 > beware of external packages and modules.
 > You should not need to install anything.
-
-> Hint: Take a look at the HTML file generated in the new `cover` directory
-
-> Hint: Testing with Random is difficult...
-> Maybe see if the resulting value is one of the expected ones
 
 ## Bonus: run static code analysis
 
