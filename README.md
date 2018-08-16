@@ -25,7 +25,7 @@ Videos to get you warmed up:
 Before coming to the class I recommend that you have a working Elixir install,
 or Docker runtime, and have downloaded these codelab files.
 
-### Installing Elixir
+### Installing Elixir (v1.6+)
 
 You have a few options, pick one you're comfortable with.
 
