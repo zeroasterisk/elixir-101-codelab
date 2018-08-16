@@ -42,6 +42,10 @@ defmodule Ex10102Fp do
     # HINT: Using List, pop off the first item from the tree (mybranch), and keep the "restoftree"
     # HINT: Using List, replace the first item on mybranch and reassign mybranch
     # HINT: return a new list by prepending the new "mybranch" to the "restoftree"
+    # SOLUTION START
+    {mybranch, restoftree} = List.pop_at(mytree, 0)
+    mybranch = List.replace_at(mybranch, 0, myleaf)
+    [mybranch | restoftree]
     # return the whole tree, after you have changed the "leaf" value
     # mytree
   end
@@ -95,7 +99,8 @@ defmodule Ex10102Fp do
     # this version of the function is called whenever the `head` is a list
     #   (nested inside of the whole append)
     # HINT: recurse into task_2, twice, for the head and the tail
-    source # ... do stuff
+    #SOLUTION START
+    source |> task_2(head) |> task_2(tail)
   end
   def task_2(source, [head | tail] = _append) when is_list(source) and is_list(tail) do
     # this version of the function is called whenever the `head` is not a list
@@ -103,7 +108,8 @@ defmodule Ex10102Fp do
     #   the "rest of the list" after the `head` is called a `tail`
     # HINT: recurse into task_2 after you use `++` to append the head onto the source
     # HINT: you can only use `++` on two lists, but `head` is not a list... what to do?
-    source # ... do stuff
+    #SOLUTION START
+    source ++ [head] |> task_2(tail)
   end
 
   @doc """
@@ -141,7 +147,13 @@ defmodule Ex10102Fp do
     |> String.split(",")
     # Clean each element of the list, to make floats
     #   see Enum.map, Enum.filter, String.trim, Ex10102Fp.task_3_prep_floatify, is_number
-    # ... do stuff ...
+    # Here we are passing `&String.trim/1` as an argument
+    #   and Enum.map will apply that function against every item in the list
+    |> Enum.map(&String.trim/1)
+    # Here we are passing our own function into Enum.map
+    |> Enum.map(&Ex10102Fp.task_3_prep_floatify/1)
+    # Here we are passing the is_number function to filter for only numbers
+    |> Enum.filter(&is_number/1)
     # this will take a list of numbers and sum them
     |> Enum.sum()
   end
