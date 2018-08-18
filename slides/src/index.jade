@@ -129,14 +129,8 @@ html
           li Clustering built in
           li Light weight message passing built in
           li Pure Actor Model
-          li OTP (Open Telecom Platform) tools &amp; designs for supervisors/processes
+          li OTP (Open Telecom Platform) system for supervisors/processes
           li Fault-tolerance (let it die)
-
-      section(data-bespoke-backdrop='erlang')
-        h2
-          img.headroom(src='images/erlang-logo.png' alt='erlang logo' height='100px'
-          style='background-color:white; padding: 0.5em 1.7em;')
-        blockquote "Erlang is a programming language and runtime system for building massively scalable soft real-time systems with requirements on high availability.
 
       section(data-bespoke-backdrop='erlang')
         blockquote "At the time of writing the largest of these projects is a major
@@ -210,7 +204,7 @@ html
         ul
           li.hide
           li Handles 14k notifications per second
-          li Uses hald the number of servers as their previous Java implementation
+          li Uses half the number of servers as their previous Java implementation
           li The codebase is ~1/10<sup>th</sup> the size
 
       section(data-bespoke-backdrop='star-loop')
@@ -220,13 +214,12 @@ html
           li.hide
           li 1.5B pageviews/month
           li 200k concurrent connections to mobile app
-          li Most heavily used service could handle 800% the load
-          li Now using ~1/10th the servers, supporting more traffic
+          li Most heavily used service could handle 8x load per server
+          li Now using ~1/10th the servers total, supporting more traffic
           li Traffic spikes which used to cause scaling, now handled normally
           li All streaming content deleivered in about 1/10th the time
 
       section(data-bespoke-backdrop='yawn')
-        h1 Yawn....
         h2 Still not convinced...
 
       section(data-bespoke-backdrop='elixir')
@@ -271,19 +264,19 @@ html
         p Exception handling is rare
 
       section(data-bespoke-backdrop='elixir')
-        h1 Functional Programming FTW
-        p Encourages smaller functions
+        h1 Functional Programming is <em>Fun</em>
+        p Encourages smaller functions (readible/composable)
         p Testing is easier and faster
-        p Side effects suck!
+        p Side effects suck! Let's avoid them.
 
       section(data-bespoke-backdrop='elixir')
         h1 Developer Experience
         ul
           li.hide
           li Rhobust REPL, build system, &amp; package management
-          li Tooling baked in: docs, testing, etc
+          li Tooling baked in: docs, testing, coverage, etc
           li Vibrant and supportive community
-          li Well documented
+          li Very well documented
           li Fun to learn a new approach to programming
           li(style='text-align:right') (not new just syntax)
 
@@ -298,14 +291,20 @@ html
         h2 Basic Types
         pre
           code.elixir
-            | iex> my_tuple = {:ok, "return value", 715}
-            | {:ok, "return value", 715}
+            | iex> my_utf8_string = "hello Iñtërnâtiônàlizætiøn"
+            | "hello Iñtërnâtiônàlizætiøn"
             | ­
-            | iex> my_list = [1, 2, 3, 4, 5]
-            | [1, 2, 3, 4, 5]
+            | iex> my_atom = :hello
+            | :hello
             | ­
-            | iex> my_map = %{:first => "Tom", :last => "Waits"}
-            | %{first: "Tom", last: "Waits"}
+            | iex> 1000 == 1_000
+            | true
+            | ­
+            | iex> 0.314159e1 == 314159.0e-5
+            | true
+            | ­
+            | iex> my_range = 1..5
+            | 1..5
 
       section(data-bespoke-backdrop='elixir')
         h2 Tuples, Lists, Maps
@@ -366,7 +365,7 @@ html
             | ­
             | iex> defimpl Stringable, for: Person do
             | ...>   def to_string(value) do
-            | ...>     "#\{value.first\} #\{value.last\}"
+            | ...>     "&num;{value.first} &num;{value.last}"
             | ...>   end
             | ...> end
             | ­
@@ -416,23 +415,23 @@ html
             |   {:ok, %HTTP.Resp{ status: 404 }} ->
             |     IO.puts "Not found :("
             |   {:ok, %HTTP.Resp{ status: status }} ->
-            |     IO.puts "HTTP Status: #{status}"
+            |     IO.puts "HTTP Status: &num;{status}"
             |   {:error, %HTTP.Error{ reason: reason }} ->
             |     IO.inspect reason
             |   _ ->
             |     IO.puts "¯\_(ツ)_/¯"
             | end
 
-      section(data-bespoke-backdrop='mind-blown')
+      section
         h2 Pattern Matching in Functions
         pre
           code.elixir
             | def execute({:ok, good_value}) do
-            |   IO.puts "Known good value: #{good_value}"
+            |   IO.puts "Known good value: &num;{good_value}"
             | end
             | ­
             | def execute({:error, error_reason}) do
-            |   IO.puts "Error! #{error_reason}"
+            |   IO.puts "Error! &num;{error_reason}"
             | end
             | ­
             | iex> execute({:ok, "Yay!"})
@@ -440,6 +439,22 @@ html
             | ­
             | iex> execute({:error, "Boo!"})
             | Error! Boo!
+
+      section(data-bespoke-backdrop='mind-blown')
+
+      section(data-bespoke-backdrop='elixir')
+        h2 Pipe Oporator
+        pre
+          code.elixir
+            | iex> "tom waits"
+            |      |> String.upcase
+            |      |> String.replace(" ", "_")
+            |      |> String.to_atom
+            | :TOM_WAITS­
+        p <code>|></code> passes result from last method as first param in next
+        h4 Similar to unix pipe
+        pre
+          code.sh $ ps ax | grep iex | awk '{ print $1 }'
 
       section(data-bespoke-backdrop='elixir')
         h2 Pipe Oporator
@@ -449,16 +464,15 @@ html
             |   defp apply_tax(prices) do
             |     Enum.map(prices, fn v -> v * 1.1 end)
             |   end
-            | ­
+            |   # we will improve readability in this function
             |   def cart_total(items) do
             |     Enum.sum(
             |       apply_tax(
             |         Enum.map(items, fn item -> item.price end)))
             |   end
             | end
-            | ­
-            | Shop.cart_total([%{:price=>5.00}, %{:price=>2.00}])
-            | # => 7.7
+            | iex> Shop.cart_total([%{price: 5.00}, %{price: 2.00}])
+            | 7.7
 
       section(data-bespoke-backdrop='sad-kirk')
         h2 Without a Pipe Oporator
@@ -480,7 +494,6 @@ html
             |   |> add_tax
             |   |> Enum.sum
             | end
-        p Similar to unix pipe: ps ax | grep iex | awk '{ print $1 }'
 
       section(data-bespoke-backdrop='universe')
         h2 And you have all of Erlang...
@@ -490,13 +503,13 @@ html
             | <<192, 151, 240, 131, 252, 86, 1, 90, 71, 171, 2, …
         p Can easily leverage 20+ years of Erlang libraries
 
-      section(data-bespoke-backdrop='shut-up-and-take-my-money')
-        h1 Ready to try it out?
-
       section(data-bespoke-backdrop='nye')
         h1 You can use Elixir today
         h3 It's really easy to get started
-        p And not hard to become really productive
+
+      section
+        h1 Ready to try it out?
+        h3 Codelab time!
 
       section(data-bespoke-backdrop='bear')
         h2 Thank You
