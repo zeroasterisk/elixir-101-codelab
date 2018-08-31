@@ -37,11 +37,8 @@ t This is a Greeting library
       iex> Greetings.hello("Joe")
       "Hello Joe"
   """
-  # Task: change :not_yet_world to :world
   def hello(), do: :world
-  # Task: add a new function definition, with a guard clause to look for atoms
   def hello(myarg) when is_atom(myarg), do: myarg
-  # Task: add a new function definition, with a guard clause to look for strings (bitstring)
   def hello(myarg) when is_bitstring(myarg), do: "Hello #{myarg}"
   def hello(_), do: raise "Unsupported Argument to hello()"
 
