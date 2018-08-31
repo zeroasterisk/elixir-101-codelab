@@ -1,4 +1,4 @@
-# Elixir 101 > Codelab 01: Greetings
+# Elixir 101 > Codelab 03: Greetings (greet)
 
 All of the sections of this codelab will requires you to
 view and edit the code, fixing errors and adding functionality.

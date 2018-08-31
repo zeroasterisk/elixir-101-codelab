@@ -47,11 +47,15 @@ defmodule LanguageHelpersTest do
     test "salutation for ES is Hola" do
       assert LanguageHelpers.salutation("ES") == "Hola"
     end
+    test "salutation for nil raises an exception" do
+      # Task: how do you test that something raises an exception?
+      assert LanguageHelpers.salutation(nil)
+    end
     test "salutation for :DE is one of [Hallo, Guten Tag]" do
-      # Task 5: add coverage for a random value
+      # Task: add coverage for a random value
       allowed = ["Hallo", "Guten Tag"]
       value = LanguageHelpers.salutation(:DE)
-      assert Enum.member?(allowed, value) == true
+      assert Enum.member?(allowed, value)
     end
   end
 

@@ -1,24 +1,50 @@
 defmodule Greetings do
   @moduledoc """
-  This will create our Greeting text: "Hello World"
+  This is a Greeting library
 
   For this contrived example we have
   - hello() which just returns :world
+  - hello(atom) which just returns atom
+  - hello(string) which just returns "Hello {string}"
+  - greet(name) which returns a "Hello $name!" (english is default language)
   - greet(name, lang = [:EN]) which returns a language specific "Hello $name!"
   """
 
   @doc """
   Super simple greeting to the world
 
-  It takes no arguments, and returns :world
+  With no arguments, it returns :world
+  With any atom, it returns that atom
+  With any string, it returns "Hello {string}"
+  Anything else raises an exception (ugly)
+
+  ## Examples
+
+      iex> Greetings.hello()
+      :world
+
+      iex> Greetings.hello(:world)
+      :world
+
+      iex> Greetings.hello(:people)
+      :people
+
+      iex> Greetings.hello("you")
+      "Hello you"
+
+      iex> Greetings.hello("Joe")
+      "Hello Joe"
   """
-  # Task: change :not_yet_world to :world
-  def hello(), do: :not_yet_world
+  def hello(), do: :world
+  def hello(myarg) when is_atom(myarg), do: myarg
+  def hello(myarg) when is_bitstring(myarg), do: "Hello #{myarg}"
+  def hello(_), do: raise "Unsupported Argument to hello()"
 
   @doc """
-  Greet is our main entry point,
-  accetping a language and a name
-  returning a greeting in the correct language.
+  Greet is our main greetings function.
+
+  With a name and a supported language, it will return a valid greeting.
+  With a name, it will return a valid greeting in English.
 
   ## Examples
 
@@ -49,14 +75,15 @@ defmodule Greetings do
     hello = lang |> LanguageHelpers.salutation()
     "#{hello} #{clean_name(name)}!"
   end
+  # Task: when you get a number, change it to "Number <arg>" and recurse into greet()
   def greet(name, lang) when is_integer(name) do
-    "Number #{name}" |> greet(lang)
+    :need_to_build
   end
   # Task: when you get a list of names, join them with a comma
   def greet(names, lang) when is_list(names) do
-    IO.puts "list of names"
-    IO.inspect names
-    IO.inspect lang
+    # IO.puts "list of names in #{lang}"
+    # IO.inspect names
+    :need_to_build
   end
   def greet(), do: "Hello Nobody!"
 
@@ -72,6 +99,15 @@ defmodule Greetings do
 
       iex> Greetings.clean_name(" jes  ")
       "Jes"
+
+      iex> Greetings.clean_name("")
+      "Mystery Person"
+
+      iex> Greetings.clean_name(nil)
+      "Nobody"
+
+      iex> Greetings.clean_name(:atom)
+      "atom"
   """
   # Task: when you get "", return "Mystery Person"
   # Task: when you get nil, return "Nobody"
