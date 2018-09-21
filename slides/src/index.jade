@@ -57,11 +57,10 @@ html
     article
 
       section
-        h2 Elixir 101:
-        h4 A brief introduction before the codelab
-        h3 With your host
-        h4 Alan Blount
-        p
+        h2 Elixir 101
+        h3 What, Why, &amp; How
+        h4 What to know, before you codelab
+        p Alan Blount
           a(href='https://twitter.com/zeroaterisk') @zeroasterisk
 
       section(data-bespoke-backdrop='hello')
@@ -196,7 +195,16 @@ html
             | Joe Armstrong (2013)
 
       section(data-bespoke-backdrop='elixir')
-        h1 Elixir is a new language built on top of some very good ideas.
+        h2 Elixir is a new language built on top of some very good ideas.
+
+      section(data-bespoke-backdrop='elixir')
+        h2 It is also simpler
+        ul
+          li.hide
+          li Several macros in Elixir make it easier to use
+          li Some of Elixir's structure enforce conventions
+          li Elixir has reduced the footprint of Erlang you *need* to use
+          li And Erlang has reduced a lot of functionality needed for parallel processing
 
       section(data-bespoke-backdrop='star-loop')
         h2 Pinterest
@@ -307,35 +315,153 @@ html
             | 1..5
 
       section(data-bespoke-backdrop='elixir')
-        h2 Tuples, Lists, Maps
+        h2 Booleans &amp; nil
+        pre
+          code.elixir
+            | iex> is_boolean(true) && is_atom(true)
+            | true
+            | iex> is_boolean(:true) && is_atom(:true)
+            | true
+            | iex> is_atom(True)
+            | true
+            | iex> is_boolean(True)
+            | false
+            |
+            | iex> is_nil(nil) && is_atom(nil)
+            | true
+            | iex> is_boolean(nil)
+            | false
+            | true
+
+      section(data-bespoke-backdrop='elixir')
+        h2 Integer
+        pre
+          code.elixir
+            | iex> is_integer(128)
+            | true
+            |
+            | iex> 1000 == 1_000
+            | true
+            |
+            | iex> 0b0110 # binary
+            | 6
+            |
+            | iex> 0o644 # octal
+            | 420
+            |
+            | iex> 0x1F # hexadecimal
+            | 31
+
+      section(data-bespoke-backdrop='elixir')
+        h2 Floats
+        pre
+          code.elixir
+            | iex> 3.14
+            | 3.14
+            |
+            | iex> .14
+            | ** (SyntaxError) iex:2: syntax error before: '.'
+            |
+            | iex> 1.0e-10
+            | 1.0e-10
+            |
+            | iex> 0.1 * 0.1
+            | 0.010000000000000002
+
+      section(data-bespoke-backdrop='elixir')
+        h2 Atoms
+        p An atom is a constant whose name is its value. (Like Ruby Symbols)
+        pre
+          code.elixir
+            | iex> :foo
+            | :foo
+            | iex> :foo == :bar
+            | false
+            | iex> :foo == "foo"
+            | false
+            | iex> :foo == :Foo
+            | false
+            | iex> :foo == Foo
+            | false
+            | iex> is_atom(:foo) && is_atom(:Foo) && is_atom(Foo)
+            | true
+
+      section(data-bespoke-backdrop='elixir')
+        h2 Strings
+        p Strings in Elixir are binarys delimited by double quotes, and they are encoded in UTF-8
+        pre
+          code.elixir
+            | iex> hello = "dziękuję"
+            | "dziękuję"
+            |
+            | iex> byte_size(hello)
+            | 10
+            |
+            | iex> String.length(hello)
+            | 8
+            |
+            | iex> is_bitstring(hello) && is_binary(hello)
+            | true
+            |
+            | iex> "Here's #{hello} world"
+            | "Here's dziękuję world"
+            |
+            | iex> ?a
+            | 97
+            |
+            | iex> <<97, 97, 97 :: utf8>>
+            | "aaa"
+            |
+            | iex> <<97, 97, 97>>
+            | "aaa"
+
+      section(data-bespoke-backdrop='elixir')
+        h2 Charlist
+        p A charlist is a list of code points, created with single-quoted literals
+        pre
+          code.elixir
+            | iex> a = 'abcd'
+            | 'abcd'
+            |
+            | iex> List.first(a)
+            | 97
+            |
+            | iex> to_string(a)
+            | "abcd"
+            |
+            | iex> byte_size(a)
+            | ** (ArgumentError) argument error
+            |    :erlang.byte_size('abcd')
+            |
+            | iex> byte_size(to_string(a))
+            | 4
+
+      section(data-bespoke-backdrop='elixir')
+        h2 Tuples
         pre
           code.elixir
             | iex> my_tuple = {:ok, "return value", 715}
             | {:ok, "return value", 715}
             | ­
+            | TODO MORE
+
+      section(data-bespoke-backdrop='elixir')
+        h2 Lists
+        pre
+          code.elixir
             | iex> my_list = [1, 2, 3, 4, 5]
             | [1, 2, 3, 4, 5]
             | ­
-            | iex> my_map = %{:first => "Tom", :last => "Waits"}
-            | %{first: "Tom", last: "Waits"}
+            | TODO MORE (cons add, length unknown)
 
       section(data-bespoke-backdrop='elixir')
-        h2 Closures
+        h2 Maps
         pre
           code.elixir
-            | iex> sum = fn a, b -> a + b end
-            | #Function<12.90072148/2 in :erl_eval.expr/5>
+            | iex> my_map = %{:first => "Tom", :last => "Waits"}
+            | %{first: "Tom", last: "Waits"}
             | ­
-            | iex> sum.(1, 2)
-            | 3
-            | ­
-            | # shortened closure syntax:
-            | ­
-            | iex> short_sum = &(&1 + &2)
-            | &:erlang.+/2
-            | ­
-            | iex> short_sum.(1, 2)
-            | 3
+            | TODO MORE (keys arbitrary (str, tuple), size unknown)
 
       section(data-bespoke-backdrop='elixir')
         h2 Structs
@@ -356,6 +482,73 @@ html
             | ** (CompileError) iex:4: unknown key :nope for struct
 
       section(data-bespoke-backdrop='elixir')
+        h2 Closures
+        pre
+          code.elixir
+            | iex> sum = fn a, b -> a + b end
+            | #Function<12.90072148/2 in :erl_eval.expr/5>
+            | ­
+            | iex> sum.(1, 2)
+            | 3
+            | ­
+            | # shortened closure syntax:
+            | ­
+            | iex> short_sum = &(&1 + &2)
+            | &:erlang.+/2
+            | ­
+            | iex> short_sum.(1, 2)
+            | 3
+
+      section(data-bespoke-backdrop='elixir')
+        h2 Variable Sorting
+        pre
+          code.elixir
+            | TODO
+            | intersting type system
+
+      section(data-bespoke-backdrop='elixir')
+        h2 Variable Lifespan
+        pre
+          code.elixir
+            | TODO
+            | talk about garbage collection
+            | when do variables disappear?
+
+      section(data-bespoke-backdrop='elixir')
+        h2 Modules & Functions
+        pre
+          code.elixir
+            | defmodule ... def ...
+            | @variable (public/private?)
+            | TODO
+
+      section(data-bespoke-backdrop='elixir')
+        h2 Functions Implicit Returns
+        pre
+          code.elixir
+            | TODO
+
+      section(data-bespoke-backdrop='elixir')
+        h2 Functions "Dreamy overloading"
+        pre
+          code.elixir
+            | TODO
+            | https://tour.golang.org/methods/16
+        p More coming up in "pattern matching" section
+
+      section(data-bespoke-backdrop='elixir')
+        h2 Functions Guard Clauses
+        pre
+          code.elixir
+            | TODO
+
+      section(data-bespoke-backdrop='elixir')
+        h2 Functions Custom Guard Clauses
+        pre
+          code.elixir
+            | TODO
+
+      section(data-bespoke-backdrop='elixir')
         h2 Protocols
         pre
           code.elixir
@@ -372,6 +565,52 @@ html
             | iex> Stringable.to_string(%Person{})
             | "Tom Waits"
         p.foot Some similarities to an OOP Interface
+
+      section(data-bespoke-backdrop='elixir')
+        h2 Variable re-assigning
+        pre
+          code.elixir
+            | TODO
+            | Not changing the value, reassigning to a new value
+
+      section(data-bespoke-backdrop='elixir')
+        h2 Pointers? Pass by reference?
+        pre
+          code.elixir
+            | TODO
+            | Nope... (confirm?)
+
+      section(data-bespoke-backdrop='elixir')
+        h2 Operators, Basic
+        pre
+          code.elixir
+            | TODO
+            | + - * / %
+
+      section(data-bespoke-backdrop='elixir')
+        h2 Operators, For
+        pre
+          code.elixir
+            | TODO
+
+      section(data-bespoke-backdrop='elixir')
+        h2 Operators, For Alternatives
+        pre
+          code.elixir
+            | TODO
+            | map, filter, reduce
+
+      section(data-bespoke-backdrop='elixir')
+        h2 Operators, If / Else (bad)
+        pre
+          code.elixir
+            | TODO
+
+      section(data-bespoke-backdrop='elixir')
+        h2 Operators, Case / Cond
+        pre
+          code.elixir
+            | TODO
 
       section(data-bespoke-backdrop='elixir')
         h2 Pattern Matching
@@ -439,6 +678,8 @@ html
             | ­
             | iex> execute({:error, "Boo!"})
             | Error! Boo!
+
+      // TODO consider more Functions examples here (overloading comparison)
 
       section(data-bespoke-backdrop='mind-blown')
 
@@ -510,6 +751,14 @@ html
       section
         h1 Ready to try it out?
         h3 Codelab time!
+
+      section
+        h1 Preview
+        ul
+          li 01-03 Greetings basics
+          li 04-06 Functional Programming basics
+          li 07-09 Concurrancy Programming basics
+          li 10-12 OTP FTW
 
       section(data-bespoke-backdrop='bear')
         h2 Thank You
