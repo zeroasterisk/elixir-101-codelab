@@ -320,18 +320,18 @@ html
           code.elixir
             | iex> is_boolean(true) && is_atom(true)
             | true
-            | iex> is_boolean(:true) && is_atom(:true)
+            | ­
+            | iex> true === :true
             | true
-            | iex> is_atom(True)
-            | true
-            | iex> is_boolean(True)
+            | ­
+            | iex> true === True
             | false
-            |
+            | ­
             | iex> is_nil(nil) && is_atom(nil)
             | true
+            | ­
             | iex> is_boolean(nil)
             | false
-            | true
 
       section(data-bespoke-backdrop='elixir')
         h2 Integer
@@ -339,16 +339,16 @@ html
           code.elixir
             | iex> is_integer(128)
             | true
-            |
+            | ­
             | iex> 1000 == 1_000
             | true
-            |
+            | ­
             | iex> 0b0110 # binary
             | 6
-            |
+            | ­
             | iex> 0o644 # octal
             | 420
-            |
+            | ­
             | iex> 0x1F # hexadecimal
             | 31
 
@@ -358,23 +358,25 @@ html
           code.elixir
             | iex> 3.14
             | 3.14
-            |
+            | ­
             | iex> .14
             | ** (SyntaxError) iex:2: syntax error before: '.'
-            |
+            | ­
             | iex> 1.0e-10
             | 1.0e-10
-            |
+            | ­
             | iex> 0.1 * 0.1
             | 0.010000000000000002
 
       section(data-bespoke-backdrop='elixir')
         h2 Atoms
-        p An atom is a constant whose name is its value. (Like Ruby Symbols)
+        p An atom is a constant whose name is its value. (like Ruby Symbols)
         pre
           code.elixir
-            | iex> :foo
-            | :foo
+            | iex> is_atom(:foo) && is_atom(:Foo) && is_atom(Foo)
+            | true
+            | iex> :foo == :foo
+            | true
             | iex> :foo == :bar
             | false
             | iex> :foo == "foo"
@@ -383,76 +385,126 @@ html
             | false
             | iex> :foo == Foo
             | false
-            | iex> is_atom(:foo) && is_atom(:Foo) && is_atom(Foo)
-            | true
 
       section(data-bespoke-backdrop='elixir')
         h2 Strings
-        p Strings in Elixir are binarys delimited by double quotes, and they are encoded in UTF-8
+        p Strings in Elixir are binarys delimited by double quotes,
+        p and they are encoded in UTF-8
         pre
           code.elixir
             | iex> hello = "dziękuję"
             | "dziękuję"
-            |
             | iex> byte_size(hello)
             | 10
-            |
             | iex> String.length(hello)
             | 8
-            |
             | iex> is_bitstring(hello) && is_binary(hello)
             | true
-            |
             | iex> "Here's #{hello} world"
             | "Here's dziękuję world"
-            |
             | iex> ?a
             | 97
-            |
             | iex> <<97, 97, 97 :: utf8>>
             | "aaa"
-            |
             | iex> <<97, 97, 97>>
             | "aaa"
 
       section(data-bespoke-backdrop='elixir')
+        h2 String
+        p i (information) about an example "hello"
+        pre
+          code.elixir
+            | iex> i "hello"
+            | Term
+            |   "hello"
+            | Data type
+            |   BitString
+            | Byte size
+            |   5
+            | Description
+            |   This is a string: a UTF-8 encoded binary.
+            |   It is printed surrounded by "double quotes"
+            |   because all UTF-8 encoded codepoints
+            |   in it are printable.
+            | Raw representation
+            |   <<104, 101, 108, 108, 111>>
+            | Reference modules
+            |   String, :binary
+            | Implemented protocols
+            |   IEx.Info, Inspect, String.Chars, List.Chars, Collectable
+
+      section(data-bespoke-backdrop='elixir')
         h2 Charlist
-        p A charlist is a list of code points, created with single-quoted literals
+        p A charlist is a list of code points,
+        p created with single-quoted literals
         pre
           code.elixir
             | iex> a = 'abcd'
             | 'abcd'
-            |
-            | iex> List.first(a)
-            | 97
-            |
+            | iex> [97, 98, 99, 100] === a
+            | true
+            | iex> Enum.count(a)
+            | 4
             | iex> to_string(a)
             | "abcd"
-            |
             | iex> byte_size(a)
             | ** (ArgumentError) argument error
             |    :erlang.byte_size('abcd')
-            |
             | iex> byte_size(to_string(a))
             | 4
+
+      section(data-bespoke-backdrop='elixir')
+        h2 Charlist
+        p i (information) about an example 'hello'
+        pre
+          code.elixir
+            | iex> i 'hello'
+            | Term
+            |   'hello'
+            | Data type
+            |   List
+            | Description
+            |   This is a list of integers that is printed
+            |   as a sequence of characters delimited by
+            |   single quotes because all the integers in
+            |   it represent valid ASCII characters.
+            | Raw representation
+            |   [104, 101, 108, 108, 111]
+            | Reference modules
+            |   List
+            | Implemented protocols
+            |   IEx.Info, Inspect, String.Chars, List.Chars,
+            |   Collectable, Enumerable
 
       section(data-bespoke-backdrop='elixir')
         h2 Tuples
         pre
           code.elixir
+            | iex> {0, 1, 2, "a", 'b'}
+            | {0, 1, 2, "a", 'b'}
+            | ­
             | iex> my_tuple = {:ok, "return value", 715}
             | {:ok, "return value", 715}
             | ­
-            | TODO MORE
+            | iex> {:error, my_tuple}
+            | {:error, {:ok, "return value", 715}}
 
       section(data-bespoke-backdrop='elixir')
-        h2 Lists
+        h2 (Linked) Lists
         pre
           code.elixir
-            | iex> my_list = [1, 2, 3, 4, 5]
-            | [1, 2, 3, 4, 5]
-            | ­
-            | TODO MORE (cons add, length unknown)
+            | iex> my_list = [1, 2, 3, 4, "five"]
+            | [1, 2, 3, 4, "five"]
+            | iex> [0 | [1 | [2]]] # fast
+            | [0, 1, 2]
+            | iex> [0] ++ [1, 2] # slower
+            | [0, 1, 2]
+            | iex> head = hd([0, 1, 2])
+            | 0
+            | iex> tail = tl([0, 1, 2])
+            | [1, 2]
+            | iex> [head | tail]
+            | [0, 1, 2]
 
       section(data-bespoke-backdrop='elixir')
         h2 Maps
