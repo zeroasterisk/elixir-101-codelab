@@ -493,8 +493,8 @@ html
         h2 (Linked) Lists
         pre
           code.elixir
-            | iex> my_list = [1, 2, 3, 4, "five"]
-            | [1, 2, 3, 4, "five"]
+            | iex> my_list = [1, 2, 3, 4, "five", nil, true]
+            | [1, 2, 3, 4, "five", nil, true]
             | iex> [0 | [1 | [2]]] # fast
             | [0, 1, 2]
             | iex> [0] ++ [1, 2] # slower
@@ -510,10 +510,14 @@ html
         h2 Maps
         pre
           code.elixir
+            | iex> %{"k" => "string", 99 => "int", 3.14 => "floats"}
+            | %{99 => "int", 3.14 => "floats", "k" => "string"}
+            | iex> %{{0, 0} => nil, {0, 1} => :X, {0, 2} => nil}
+            | %{{0, 0} => nil, {0, 1} => :X, {0, 2} => nil}
+            | iex> Map.merge(%{a: 1, c: 4}, %{a: 3, b: 2})
+            | %{a: 3, b: 2, c: 4}
             | iex> my_map = %{:first => "Tom", :last => "Waits"}
             | %{first: "Tom", last: "Waits"}
-            | ­
-            | TODO MORE (keys arbitrary (str, tuple), size unknown)
 
       section(data-bespoke-backdrop='elixir')
         h2 Structs
@@ -570,9 +574,51 @@ html
         h2 Modules & Functions
         pre
           code.elixir
-            | defmodule ... def ...
-            | @variable (public/private?)
-            | TODO
+            | defmodule MyApp.MyPackage.MyWhtvr do
+            |   @what_to_say :whatever
+            |   def say do
+            |     @what_to_say
+            |   end
+            | end
+
+      section(data-bespoke-backdrop='elixir')
+        h2 Modules & Functions
+        pre
+          code.elixir
+            | defmodule MyApp.MyPackage.MyWhtvr do
+            |   @moduledoc """
+            |   MyWhtvr Documentation blah blah
+            |   """
+            |   @what_to_say :whatever
+            |
+            |   @doc """
+            |   This function just returns :whatever
+            |   """
+            |   def say do
+            |     @what_to_say
+            |   end
+            | end
+
+      section(data-bespoke-backdrop='elixir')
+        h2 Modules & Functions
+        pre
+          code.elixir
+            | defmodule MyApp.MyPackage.MyWhtvr do
+            |   @what_to_say :whatever
+            |
+            |   @doc """
+            |   This function just returns :whatever
+            |
+            |   ## Examples
+            |
+            |       iex> MyApp.MyPackage.MyWhtvr.say
+            |       :whatever
+            |
+            |   """
+            |   def say do
+            |     @what_to_say
+            |   end
+            | end
 
       section(data-bespoke-backdrop='elixir')
         h2 Functions Implicit Returns
