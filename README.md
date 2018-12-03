@@ -20,6 +20,11 @@ Videos to get you warmed up:
   (30 min video)
   Dave Thomas "longer" into to Elixir (coding example)
 
+Articles for context:
+* [Goodbye OOP](https://medium.com/@cscalfani/goodbye-object-oriented-programming-a59cda4c0e53)
+  insights about what OOP promised but didn't deliver,
+  and how a functional approach can.
+
 ## Prework
 
 Before coming to the class I recommend that you have a working Elixir install,
